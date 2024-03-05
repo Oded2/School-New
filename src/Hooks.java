@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Hooks {
     private final String[] names = {"Luke", "Anakin", "Kylo", "Obi Wan", "Lando", "Mando", "Yoda", "Mace Windu"};
 
@@ -45,6 +47,33 @@ public class Hooks {
         return true;
     }
 
+    public <T> T getLast(Queue<T> q) {
+        Queue<T> clone = clone(q);
+        T last = clone.head();
+        while (!clone.isEmpty()) last = clone.remove();
+        return last;
+    }
+
+    public <T extends Comparable<T>> T max(Queue<T> q) {
+        Queue<T> clone = clone(q);
+        T max = clone.head();
+        while (!clone.isEmpty()) {
+            T current = clone.remove();
+            if (current.compareTo(max) > 0) max = current;
+        }
+        return max;
+    }
+
+    public <T extends Comparable<T>> T min(Queue<T> q) {
+        Queue<T> clone = clone(q);
+        T min = clone.head();
+        while (!clone.isEmpty()) {
+            T current = clone.remove();
+            if (current.compareTo(min) < 0) min = current;
+        }
+        return min;
+    }
+
     public <T> boolean exist(Node<T> node, T x) {
         Node<T> pos = node;
         while (pos != null) {
@@ -52,5 +81,9 @@ public class Hooks {
             pos = pos.getNext();
         }
         return false;
+    }
+
+    public <T> void printArr(T[] arr) {
+        System.out.println(Arrays.toString(arr));
     }
 }

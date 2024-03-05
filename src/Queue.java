@@ -1,3 +1,4 @@
+//School Material
 public class Queue<T> {
     public Node<T> first;
     public Node<T> last;
