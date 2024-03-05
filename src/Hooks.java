@@ -1,15 +1,56 @@
 public class Hooks {
     private final String[] names = {"Luke", "Anakin", "Kylo", "Obi Wan", "Lando", "Mando", "Yoda", "Mace Windu"};
-    
+
     public int random(int min, int max) {
-        return (int) Math.round(this.random((double) min, max));
+        return (int) Math.round(random((double) min, max));
     }
 
     public double random(double min, double max) {
         return (double) Math.round((Math.random() * (max - min) + min) * 100) / 100;
     }
 
-    public char random(char min, char max) {
-        return (char) random((int) min, max);
+    public <T> Queue<T> clone(Queue<T> q) {
+        Queue<T> q1 = new Queue<>();
+        Queue<T> q2 = new Queue<>();
+        while (!q.isEmpty()) {
+            T x = q.remove();
+            q1.insert(x);
+            q2.insert(x);
+        }
+        while (!q1.isEmpty()) q.insert(q1.remove());
+        return q2;
+    }
+
+    public <T> boolean exist(Queue<T> q, T x) {
+        Queue<T> q1 = clone(q);
+        while (!q1.isEmpty()) if (q1.remove() == x) return true;
+        return false;
+    }
+
+    public <T> int length(Queue<T> q) {
+        int len = 0;
+        Queue<T> clone = clone(q);
+        while (!clone.isEmpty()) {
+            len++;
+            clone.remove();
+        }
+        return len;
+    }
+
+    public <T> boolean equals(Queue<T> q1, Queue<T> q2) {
+        if (length(q1) != length(q2)) return false;
+        Queue<T> clone1 = clone(q1);
+        Queue<T> clone2 = clone(q2);
+        while (!clone1.isEmpty()) if (clone1.remove() != clone2.remove()) return false;
+        return true;
+    }
+
+    public <T> boolean exist(Node<T> node, T x) {
+        Node<T> pos = node;
+        while (pos != null) {
+            if (pos.getValue() == x) return true;
+            pos = pos.getNext();
+        }
+        return false;
     }
 }
