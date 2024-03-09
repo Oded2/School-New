@@ -83,7 +83,16 @@ public class Hooks {
         return false;
     }
 
+    public <T> boolean exist(T[] arr, T x) {
+        for (T i : arr) if (i == x) return true;
+        return false;
+    }
+
     public <T> void printArr(T[] arr) {
+        System.out.println(Arrays.toString(arr));
+    }
+
+    public void printArr(int[] arr) {
         System.out.println(Arrays.toString(arr));
     }
 }
