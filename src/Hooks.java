@@ -74,6 +74,35 @@ public class Hooks {
         return min;
     }
 
+    public <T> boolean isPalindrome(Queue<T> q) {
+        Queue<T> clone = clone(q);
+        while (!clone.isEmpty()) {
+            T temp = clone.remove();
+            if (clone.isEmpty()) return true;
+            if (temp != removeLast(clone)) return false;
+        }
+        return true;
+    }
+
+    public <T> T removeLast(Queue<T> q) {
+        Queue<T> result = new Queue<>();
+        T last = null;
+        while (!q.isEmpty()) {
+            last = q.remove();
+            if (!q.isEmpty()) result.insert(last);
+        }
+        while (!result.isEmpty()) q.insert(result.remove());
+        return last;
+    }
+
+    public <T> Queue<T> combine(Queue<T> q1, Queue<T> q2) {
+        Queue<T> result = clone(q1);
+        Queue<T> clone = clone(q2);
+        while (!clone.isEmpty()) result.insert(clone.remove());
+        return result;
+
+    }
+
     public <T> boolean exist(Node<T> node, T x) {
         Node<T> pos = node;
         while (pos != null) {
@@ -83,9 +112,33 @@ public class Hooks {
         return false;
     }
 
+    public <T> boolean equals(Node<T> node1, Node<T> node2) {
+        Node<T> pos1 = node1;
+        Node<T> pos2 = node2;
+        while (pos1 != null) {
+            if (pos2 == null) return false;
+            if (pos1.getValue() != pos2.getValue()) return false;
+            pos1 = pos1.getNext();
+            pos2 = pos2.getNext();
+        }
+        return pos2 == null;
+    }
+
     public <T> boolean exist(T[] arr, T x) {
         for (T i : arr) if (i == x) return true;
         return false;
+    }
+
+    public <T> boolean isPalindrome(T[] arr) {
+        int length = arr.length;
+        for (int i = 0; i < length / 2; i++) if (arr[i] != arr[length - i - 1]) return false;
+        return true;
+    }
+
+    public <T> boolean equals(T[] arr1, T[] arr2) {
+        if (arr1.length != arr2.length) return false;
+        for (int i = 0; i < arr1.length; i++) if (arr1[i] != arr2[i]) return false;
+        return true;
     }
 
     public <T> void printArr(T[] arr) {
