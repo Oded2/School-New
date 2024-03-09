@@ -103,6 +103,18 @@ public class Hooks {
 
     }
 
+    public <T> Node<T> clone(Node<T> node) {
+        Node<T> pos = node.getNext();
+        Node<T> result = new Node<>(node.getValue());
+        Node<T> pointer = result;
+        while (pos != null) {
+            pointer.setNext(new Node<>(pos.getValue()));
+            pointer = pointer.getNext();
+            pos = pos.getNext();
+        }
+        return result;
+    }
+
     public <T> boolean exist(Node<T> node, T x) {
         Node<T> pos = node;
         while (pos != null) {
@@ -122,6 +134,29 @@ public class Hooks {
             pos2 = pos2.getNext();
         }
         return pos2 == null;
+    }
+
+    public <T> boolean isPalindrome(Node<T> node) {
+        Node<T> pos = clone(node);
+        while (pos != null) {
+            if (pos.getValue() != getLast(pos).getValue()) return false;
+            removeLast(pos);
+            pos = pos.getNext();
+            if (pos != null && pos.getNext() == null) return true;
+        }
+        return true;
+    }
+
+    public <T> Node<T> getLast(Node<T> node) {
+        Node<T> pos = node;
+        while (pos.getNext() != null) pos = pos.getNext();
+        return pos;
+    }
+
+    public <T> void removeLast(Node<T> node) {
+        Node<T> pos = node;
+        while (pos.getNext().getNext() != null) pos = pos.getNext();
+        pos.setNext(null);
     }
 
     public <T> boolean exist(T[] arr, T x) {
