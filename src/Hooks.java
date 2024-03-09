@@ -95,4 +95,33 @@ public class Hooks {
     public void printArr(int[] arr) {
         System.out.println(Arrays.toString(arr));
     }
+
+    public <T> Queue<T> buildQueue(T[] arr) {
+        Queue<T> result = new Queue<>();
+        for (T i : arr) result.insert(i);
+        return result;
+    }
+
+    public Queue<Integer> buildQueue(int min, int max) {
+        Queue<Integer> result = new Queue<>();
+        for (int i = min; i <= max; i++) result.insert(i);
+        return result;
+    }
+
+
+    public Queue<Integer> buildQueue(int min, int max, int length) {
+        Queue<Integer> result = new Queue<>();
+        for (int i = 0; i < length; i++) result.insert(random(min, max));
+        return result;
+    }
+
+    public <T> Node<T> buildNode(T[] arr) {
+        Node<T> result = new Node<>(null);
+        Node<T> pointer = result;
+        for (T i : arr) {
+            pointer.setNext(new Node<>(i));
+            pointer = pointer.getNext();
+        }
+        return result.getNext();
+    }
 }

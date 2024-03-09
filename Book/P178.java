@@ -1,7 +1,6 @@
 public class P178 {
 
     public static final Hooks hooks = new Hooks();
-    public static final BuildQueue buildQueue = new BuildQueue();
 
     public static void main(String[] args) {
 

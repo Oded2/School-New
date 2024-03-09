@@ -1,11 +1,10 @@
 public class P176Q4 {
 
     public static final Hooks hooks = new Hooks();
-    public static final BuildQueue buildQueue = new BuildQueue();
 
     public static void main(String[] args) {
         Time[] times = {new Time(1, 2, 3), new Time(3, 2, 1), new Time(2, 1, 3)};
-        Queue<Time> q = buildQueue.fromArray(times);
+        Queue<Time> q = hooks.buildQueue(times);
         System.out.println(firstLastDiff(q));
     }
 

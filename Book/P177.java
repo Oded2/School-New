@@ -1,6 +1,5 @@
 public class P177 {
     public static Hooks hooks = new Hooks();
-    public static BuildQueue buildQueue = new BuildQueue();
 
     public static void main(String[] args) {
     }

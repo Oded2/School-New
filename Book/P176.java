@@ -1,13 +1,11 @@
 public class P176 {
-
-    public static final BuildQueue buildQueue = new BuildQueue();
     public static final Hooks hooks = new Hooks();
 
     public static void main(String[] args) {
         Integer[] arr1 = {1, 2, 3};
         Integer[] arr2 = {1, 2, 2};
-        Queue<Integer> q1 = buildQueue.fromArray(arr1);
-        Queue<Integer> q2 = buildQueue.fromArray(arr2);
+        Queue<Integer> q1 = hooks.buildQueue(arr1);
+        Queue<Integer> q2 = hooks.buildQueue(arr2);
         System.out.println("q1 = " + q1);
         System.out.println("q2 = " + q2);
         System.out.println(q1 == q2);
