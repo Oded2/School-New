@@ -159,6 +159,11 @@ public class Hooks {
         pos.setNext(null);
     }
 
+    public <T> int length(Node<T> node) {
+        if (node == null) return 0;
+        return length(node.getNext()) + 1;
+    }
+
     public <T> boolean exist(T[] arr, T x) {
         for (T i : arr) if (i == x) return true;
         return false;
@@ -174,6 +179,30 @@ public class Hooks {
         if (arr1.length != arr2.length) return false;
         for (int i = 0; i < arr1.length; i++) if (arr1[i] != arr2[i]) return false;
         return true;
+    }
+
+    public <T> void swap(T[] arr, int i, int j) {
+        T temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public <T extends Comparable<T>> T max(T[] arr) {
+        T max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            T current = arr[i];
+            if (current.compareTo(max) > 0) max = current;
+        }
+        return max;
+    }
+
+    public <T extends Comparable<T>> T min(T[] arr) {
+        T min = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            T current = arr[i];
+            if (current.compareTo(min) < 0) min = current;
+        }
+        return min;
     }
 
     public <T> void printArr(T[] arr) {
