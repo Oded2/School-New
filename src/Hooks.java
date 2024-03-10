@@ -11,6 +11,10 @@ public class Hooks {
         return (double) Math.round((Math.random() * (max - min) + min) * 100) / 100;
     }
 
+    public char random(char min, char max) {
+        return (char) random((int) min, max);
+    }
+
     public <T> Queue<T> clone(Queue<T> q) {
         Queue<T> q1 = new Queue<>();
         Queue<T> q2 = new Queue<>();
@@ -205,6 +209,11 @@ public class Hooks {
         return min;
     }
 
+    public <T> void reverse(T[] arr) {
+        int length = arr.length;
+        for (int i = 0; i < length / 2; i++) swap(arr, i, length - 1 - i);
+    }
+
     public <T> void printArr(T[] arr) {
         System.out.println(Arrays.toString(arr));
     }
@@ -232,6 +241,12 @@ public class Hooks {
         return result;
     }
 
+    public Queue<Character> buildQueue(char min, char max, int length) {
+        Queue<Character> result = new Queue<>();
+        for (int i = 0; i < length; i++) result.insert(random(min, max));
+        return result;
+    }
+
     public <T> Node<T> buildNode(T[] arr) {
         Node<T> result = new Node<>(null);
         Node<T> pointer = result;
@@ -241,4 +256,5 @@ public class Hooks {
         }
         return result.getNext();
     }
+
 }
