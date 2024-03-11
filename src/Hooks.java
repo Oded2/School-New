@@ -107,6 +107,29 @@ public class Hooks {
 
     }
 
+    public <T> void reverse(Queue<T> q) {
+        Queue<T> clone = clone(q);
+        clear(q);
+        while (!clone.isEmpty()) q.insert(removeLast(clone));
+    }
+
+    public <T> void clear(Queue<T> q) {
+        while (!q.isEmpty()) q.remove();
+    }
+
+    public <T extends Comparable<T>> void sort(Queue<T> q) {
+        Queue<T> clone = clone(q);
+        clear(q);
+        q.insert(clone.remove());
+        while (!clone.isEmpty()) {
+            Queue<T> storage = new Queue<>();
+            T temp = clone.remove();
+            while (temp.compareTo(getLast(q)) > 0) storage.insert(removeLast(q));
+            reverse(storage);
+            while (!storage.isEmpty()) q.insert(storage.remove());
+        }
+    }
+
     public <T> Node<T> clone(Node<T> node) {
         Node<T> pos = node.getNext();
         Node<T> result = new Node<>(node.getValue());
@@ -244,6 +267,12 @@ public class Hooks {
     public Queue<Character> buildQueue(char min, char max, int length) {
         Queue<Character> result = new Queue<>();
         for (int i = 0; i < length; i++) result.insert(random(min, max));
+        return result;
+    }
+
+    public Queue<Character> buildQueue(char start, char end) {
+        Queue<Character> result = new Queue<>();
+        for (char i = start; i <= end; i++) result.insert(i);
         return result;
     }
 
