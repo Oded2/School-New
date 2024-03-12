@@ -32,6 +32,9 @@ public class Queue<T> {
     }
 
     public String toString() {
+//        Added to allow to string even if the queue is empty
+        if(isEmpty()) return "empty";
+//        End of addition
         String temp = first.toString();
         return "head -> " + temp.substring(0, temp.length() - 4) + " end";
     }
