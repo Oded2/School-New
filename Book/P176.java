@@ -2,14 +2,10 @@ public class P176 {
     public static final Hooks hooks = new Hooks();
 
     public static void main(String[] args) {
-        Integer[] arr1 = {1, 2, 3};
-        Integer[] arr2 = {1, 2, 2};
-        Queue<Integer> q1 = hooks.buildQueue(arr1);
-        Queue<Integer> q2 = hooks.buildQueue(arr2);
-        System.out.println("q1 = " + q1);
-        System.out.println("q2 = " + q2);
-        System.out.println(q1 == q2);
-        System.out.println(Q2(q1, q2));
+        Queue<Integer> q = hooks.buildQueue(new Integer[]{18,5,30,5,5,3,6,6});
+        System.out.println(q);
+        Q3(q);
+        System.out.println(q);
 
     }
 
@@ -28,16 +24,12 @@ public class P176 {
     }
 
     public static void Q3(Queue<Integer> q) {
-        Node<Integer> list = new Node<>(null);
-        Node<Integer> pointer = list;
-        q.insert(null);
-        while (q.head() != null) {
-            int current = q.remove();
-            if (!hooks.exist(list, current)) q.insert(current);
-            pointer.setNext(new Node<>(current));
-            pointer = pointer.getNext();
+        Queue<Integer> fixed = new Queue<>();
+        while(!q.isEmpty()){
+            int x = q.remove();
+            if(!hooks.exist(fixed, x)) fixed.insert(x);
         }
-        q.remove();
+        while(!fixed.isEmpty()) q.insert(fixed.remove());
     }
 
 

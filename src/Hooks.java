@@ -1,7 +1,11 @@
 import java.util.Arrays;
 
 public class Hooks {
-    private final String[] names = {"Luke", "Anakin", "Kylo", "Obi Wan", "Lando", "Mando", "Yoda", "Mace Windu"};
+    final String[] names = {"Luke", "Anakin", "Kylo", "Obi Wan", "Lando", "Mando", "Yoda", "Mace Windu"};
+
+    public String getName() {
+        return names[random(0, names.length - 1)];
+    }
 
     public int random(int min, int max) {
         return (int) Math.round(random((double) min, max));
@@ -53,7 +57,7 @@ public class Hooks {
 
     public <T> T getLast(Queue<T> q) {
         Queue<T> clone = clone(q);
-        T last = clone.head();
+        T last = clone.remove();
         while (!clone.isEmpty()) last = clone.remove();
         return last;
     }
@@ -104,7 +108,6 @@ public class Hooks {
         Queue<T> clone = clone(q2);
         while (!clone.isEmpty()) result.insert(clone.remove());
         return result;
-
     }
 
     public <T> void reverse(Queue<T> q) {
@@ -117,17 +120,23 @@ public class Hooks {
         while (!q.isEmpty()) q.remove();
     }
 
-    public <T extends Comparable<T>> void sort(Queue<T> q) {
-        Queue<T> clone = clone(q);
-        clear(q);
-        q.insert(clone.remove());
-        while (!clone.isEmpty()) {
-            Queue<T> storage = new Queue<>();
-            T temp = clone.remove();
-            while (temp.compareTo(getLast(q)) > 0) storage.insert(removeLast(q));
-            reverse(storage);
-            while (!storage.isEmpty()) q.insert(storage.remove());
+    public <T> void reverse(Node<T> node) {
+        Node<T> clone = clone(node);
+        Node<T> pos = node;
+        T first = node.getValue();
+        while (pos != null) {
+            T temp = pos.getValue();
+            pos.setValue(getLast(clone).getValue());
+            getLast(pos).setValue(temp);
+            if (clone.getNext() != null) removeLast(clone);
+            pos = pos.getNext();
         }
+        getLast(node).setValue(first);
+    }
+
+    public <T> void clear(Node<T> node, T val) {
+        node.setValue(val);
+        node.setNext(null);
     }
 
     public <T> Node<T> clone(Node<T> node) {
@@ -164,12 +173,12 @@ public class Hooks {
     }
 
     public <T> boolean isPalindrome(Node<T> node) {
-        Node<T> pos = clone(node);
-        while (pos != null) {
-            if (pos.getValue() != getLast(pos).getValue()) return false;
-            removeLast(pos);
-            pos = pos.getNext();
-            if (pos != null && pos.getNext() == null) return true;
+        Node<T> clone = clone(node);
+        while (clone != null) {
+            if (clone.getValue() != getLast(clone).getValue()) return false;
+            removeLast(clone);
+            clone = clone.getNext();
+            if (clone != null && clone.getNext() == null) return true;
         }
         return true;
     }
@@ -245,6 +254,10 @@ public class Hooks {
         System.out.println(Arrays.toString(arr));
     }
 
+    public void printArr(char[] arr) {
+        System.out.println(Arrays.toString(arr));
+    }
+
     public <T> Queue<T> buildQueue(T[] arr) {
         Queue<T> result = new Queue<>();
         for (T i : arr) result.insert(i);
@@ -286,4 +299,23 @@ public class Hooks {
         return result.getNext();
     }
 
+    public Node<Integer> buildNode(int min, int max) {
+        Node<Integer> result = new Node<>(null);
+        Node<Integer> pointer = result;
+        for (int i = min; i <= max; i++) {
+            pointer.setNext(new Node<>(i));
+            pointer = pointer.getNext();
+        }
+        return result.getNext();
+    }
+
+    public Node<Integer> buildNode(int min, int max, int length) {
+        Node<Integer> result = new Node<>(null);
+        Node<Integer> pointer = result;
+        for (int i = 0; i < length; i++) {
+            pointer.setNext(new Node<>(random(min, max)));
+            pointer = pointer.getNext();
+        }
+        return result.getNext();
+    }
 }
