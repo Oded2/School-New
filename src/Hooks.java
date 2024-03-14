@@ -1,7 +1,8 @@
 import java.util.Arrays;
 
 public class Hooks {
-    final String[] names = {"Luke", "Anakin", "Kylo", "Obi Wan", "Lando", "Mando", "Yoda", "Mace Windu"};
+
+    public final String[] names = {"Luke", "Anakin", "Kylo", "Obi Wan", "Lando", "Mando", "Yoda", "Mace Windu"};
 
     public String getName() {
         return names[random(0, names.length - 1)];
@@ -106,8 +107,12 @@ public class Hooks {
     public <T> Queue<T> combine(Queue<T> q1, Queue<T> q2) {
         Queue<T> result = clone(q1);
         Queue<T> clone = clone(q2);
-        while (!clone.isEmpty()) result.insert(clone.remove());
+        spill(result, clone);
         return result;
+    }
+
+    public <T> void spill(Queue<T> in, Queue<T> out) {
+        while (!out.isEmpty()) in.insert(out.remove());
     }
 
     public <T> void reverse(Queue<T> q) {
