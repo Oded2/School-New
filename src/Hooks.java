@@ -125,6 +125,23 @@ public class Hooks {
         while (!q.isEmpty()) q.remove();
     }
 
+    public <T extends Comparable<T>> void sort(Queue<T> q) {
+        Queue<T> sorted = new Queue<>();
+        while(!q.isEmpty()){
+            T max = max(q);
+            sorted.insert(max);
+            Queue<T> storage = new Queue<>();
+            boolean reached = false;
+            while(!q.isEmpty()){
+                T current = q.remove();
+                if(current!=max || reached) storage.insert(current);
+                else reached = true;
+            }
+            spill(q, storage);
+        }
+        spill(q, sorted);
+    }
+
     public <T> void reverse(Node<T> node) {
         Node<T> clone = clone(node);
         Node<T> pos = node;
