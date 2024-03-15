@@ -127,14 +127,14 @@ public class Hooks {
 
     public <T extends Comparable<T>> void sort(Queue<T> q) {
         Queue<T> sorted = new Queue<>();
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             T max = max(q);
             sorted.insert(max);
             Queue<T> storage = new Queue<>();
             boolean reached = false;
-            while(!q.isEmpty()){
+            while (!q.isEmpty()) {
                 T current = q.remove();
-                if(current!=max || reached) storage.insert(current);
+                if (current != max || reached) storage.insert(current);
                 else reached = true;
             }
             spill(q, storage);
@@ -154,6 +154,37 @@ public class Hooks {
             pos = pos.getNext();
         }
         getLast(node).setValue(first);
+    }
+
+    public <T> void swap(Node<T> node1, Node<T> node2) {
+        T tempVal = node1.getValue();
+        Node<T> tempNext = node1.getNext();
+        node1.setValue(node2.getValue());
+        node1.setNext(node2.getNext());
+        node2.setValue(tempVal);
+        node2.setNext(tempNext);
+    }
+
+    public <T extends Comparable<T>> T min(Node<T> node) {
+        T min = node.getValue();
+        Node<T> pos = node.getNext();
+        while (pos != null) {
+            T current = pos.getValue();
+            if (min.compareTo(current) > 0) min = current;
+            pos = pos.getNext();
+        }
+        return min;
+    }
+
+    public <T extends Comparable<T>> T max(Node<T> node) {
+        T max = node.getValue();
+        Node<T> pos = node.getNext();
+        while (pos != null) {
+            T current = pos.getValue();
+            if (max.compareTo(current) < 0) max = current;
+            pos = pos.getNext();
+        }
+        return max;
     }
 
     public <T> void clear(Node<T> node, T val) {
