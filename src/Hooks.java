@@ -142,6 +142,22 @@ public class Hooks {
         spill(q, sorted);
     }
 
+    public <T extends Comparable<T>> void sort(Node<T> node) {
+        Node<T> pos1 = node;
+        while (pos1 != null) {
+            Node<T> pos2 = node;
+            while (pos2.getNext() != null) {
+                if (pos2.getValue().compareTo(pos2.getNext().getValue()) > 0) {
+                    T temp = pos2.getValue();
+                    pos2.setValue(pos2.getNext().getValue());
+                    pos2.getNext().setValue(temp);
+                }
+                pos2 = pos2.getNext();
+            }
+            pos1 = pos1.getNext();
+        }
+    }
+
     public <T> void reverse(Node<T> node) {
         Node<T> clone = clone(node);
         Node<T> pos = node;
@@ -274,6 +290,9 @@ public class Hooks {
         T temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
+    }
+    public <T extends Comparable<T>> void sort(T[] arr){
+        Arrays.sort(arr);
     }
 
     public <T extends Comparable<T>> T max(T[] arr) {
