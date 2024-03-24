@@ -1,4 +1,4 @@
-public class Question1 {
+class Question1 {
 
     public static final Hooks hooks = new Hooks();
 

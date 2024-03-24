@@ -2,7 +2,7 @@ public class P177 {
     public static final Hooks hooks = new Hooks();
 
     public static void main(String[] args) {
-    Queue<Integer> q1 = hooks.buildQueue(new Integer[]{1,2,2,3,3,3});
+        Queue<Integer> q1 = hooks.buildQueue(new Integer[]{1, 2, 2, 3, 3, 3});
         System.out.println(q1);
         System.out.println(Q5(q1, 3));
         System.out.println(q1);
@@ -22,6 +22,7 @@ public class P177 {
         for (int i = 0; i < n; i++) q.insert(q.remove());
         return q.head().equals("gold");
     }
+
     public static Queue<Integer> Q7(Queue<Integer> q) {
 //        Not finished
         Queue<Integer> clone = hooks.clone(q);
@@ -31,7 +32,7 @@ public class P177 {
             int temp = clone.remove();
             Queue<Integer> storage = new Queue<>();
             storage.insert(temp);
-            while ( hooks.getLast(result) < temp) storage.insert(hooks.removeLast(result));
+            while (hooks.getLast(result) < temp) storage.insert(hooks.removeLast(result));
             while (!storage.isEmpty()) result.insert(storage.remove());
             System.out.println("storage = " + storage);
             System.out.println("result = " + result);
@@ -39,11 +40,12 @@ public class P177 {
         }
         return result;
     }
-    public static void Q8(Queue<Job> jobs, int maxSeconds){
+
+    public static void Q8(Queue<Job> jobs, int maxSeconds) {
         Queue<Job> remainder = new Queue<>();
-        while(!jobs.isEmpty()){
+        while (!jobs.isEmpty()) {
             Job current = jobs.remove();
-            if(current.seconds<=maxSeconds) System.out.println(current.code);
+            if (current.seconds <= maxSeconds) System.out.println(current.code);
             else remainder.insert(current);
         }
         hooks.spill(jobs, remainder);
