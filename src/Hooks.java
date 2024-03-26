@@ -38,7 +38,7 @@ public class Hooks {
         return false;
     }
 
-    public <T> int length(Queue<T> q) {
+    public <T> int size(Queue<T> q) {
         int len = 0;
         Queue<T> clone = clone(q);
         while (!clone.isEmpty()) {
@@ -49,7 +49,7 @@ public class Hooks {
     }
 
     public <T> boolean equals(Queue<T> q1, Queue<T> q2) {
-        if (length(q1) != length(q2)) return false;
+        if (size(q1) != size(q2)) return false;
         Queue<T> clone1 = clone(q1);
         Queue<T> clone2 = clone(q2);
         while (!clone1.isEmpty()) if (clone1.remove() != clone2.remove()) return false;
@@ -264,9 +264,9 @@ public class Hooks {
         pos.setNext(null);
     }
 
-    public <T> int length(Node<T> node) {
+    public <T> int size(Node<T> node) {
         if (node == null) return 0;
-        return length(node.getNext()) + 1;
+        return size(node.getNext()) + 1;
     }
 
     public <T> boolean exist(T[] arr, T x) {
