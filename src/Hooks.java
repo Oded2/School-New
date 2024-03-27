@@ -118,7 +118,7 @@ public class Hooks {
     public <T> void reverse(Queue<T> q) {
         Queue<T> clone = clone(q);
         clear(q);
-        while (!clone.isEmpty()) q.insert(removeLast(clone));
+        spill(q, clone);
     }
 
     public <T> void clear(Queue<T> q) {
@@ -291,7 +291,8 @@ public class Hooks {
         arr[i] = arr[j];
         arr[j] = temp;
     }
-    public <T extends Comparable<T>> void sort(T[] arr){
+
+    public <T extends Comparable<T>> void sort(T[] arr) {
         Arrays.sort(arr);
     }
 
