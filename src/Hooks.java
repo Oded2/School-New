@@ -274,6 +274,11 @@ public class Hooks {
         return false;
     }
 
+    public boolean exist(int[] arr, int x) {
+        for (int i : arr) if (i == x) return true;
+        return false;
+    }
+
     public <T> boolean isPalindrome(T[] arr) {
         int length = arr.length;
         for (int i = 0; i < length / 2; i++) if (arr[i] != arr[length - i - 1]) return false;

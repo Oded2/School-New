@@ -9,11 +9,14 @@ public class PartTwo {
         System.out.println(twoSum(q, 9));
     }
 
+    //    Question 4
     public static boolean twoSum(Queue<Integer> q, int x) {
         while (!q.isEmpty()) {
             Queue<Integer> clone = hooks.clone((q));
-            while (!clone.isEmpty()) if (q.remove() + clone.remove() == x) return true;
+            int current = q.remove();
+            while (!clone.isEmpty()) if (current + clone.remove() == x) return true;
         }
         return false;
     }
+
 }
