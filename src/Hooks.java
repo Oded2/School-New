@@ -28,7 +28,7 @@ public class Hooks {
             q1.insert(x);
             q2.insert(x);
         }
-        while (!q1.isEmpty()) q.insert(q1.remove());
+        spill(q, q1);
         return q2;
     }
 
@@ -100,7 +100,7 @@ public class Hooks {
             last = q.remove();
             if (!q.isEmpty()) result.insert(last);
         }
-        while (!result.isEmpty()) q.insert(result.remove());
+        spill(q, result);
         return last;
     }
 
