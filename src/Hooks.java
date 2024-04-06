@@ -118,7 +118,7 @@ public class Hooks {
     public <T> void reverse(Queue<T> q) {
         Queue<T> clone = clone(q);
         clear(q);
-        spill(q, clone);
+        while(!clone.isEmpty()) q.insert(removeLast(clone));
     }
 
     public <T> void clear(Queue<T> q) {
