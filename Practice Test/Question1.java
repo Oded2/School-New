@@ -3,7 +3,7 @@ class Question1 {
     public static final Hooks hooks = new Hooks();
 
     public static void main(String[] args) {
-        boolean a = followers(201);
+        boolean a = followers(28456371);
         System.out.println("a = " + a);
     }
 
