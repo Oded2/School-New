@@ -104,20 +104,13 @@ public class Hooks {
 
     public <T> T removeLast(Queue<T> q) {
         Queue<T> result = new Queue<>();
-        T last = null;
+        T last = q.remove();
         while (!q.isEmpty()) {
+            result.insert(last);
             last = q.remove();
-            if (!q.isEmpty()) result.insert(last);
         }
         spill(q, result);
         return last;
-    }
-
-    public <T> Queue<T> combine(Queue<T> q1, Queue<T> q2) {
-        Queue<T> result = clone(q1);
-        Queue<T> clone = clone(q2);
-        spill(result, clone);
-        return result;
     }
 
     public <T> void spill(Queue<T> in, Queue<T> out) {
