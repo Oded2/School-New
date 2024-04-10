@@ -2,7 +2,9 @@ import java.util.Arrays;
 
 public class Hooks {
 
-    public final String[] names = {"Luke", "Anakin", "Kylo", "Obi Wan", "Lando", "Mando", "Yoda", "Mace Windu"};
+//    a.compareTo(b) returns: 1 if a > b, 0 if a == b, and -1 if a < b.
+
+    public final String[] names = {"Luke", "Anakin", "Kylo", "Lando", "Yoda"};
 
     public String getName() {
         return names[random(0, names.length - 1)];
@@ -65,22 +67,29 @@ public class Hooks {
 
     public <T extends Comparable<T>> T max(Queue<T> q) {
         Queue<T> clone = clone(q);
-        T max = clone.head();
+        T max = firstNotNull(q);
         while (!clone.isEmpty()) {
             T current = clone.remove();
-            if (current.compareTo(max) > 0) max = current;
+            if (current != null && current.compareTo(max) > 0) max = current;
         }
         return max;
     }
 
     public <T extends Comparable<T>> T min(Queue<T> q) {
         Queue<T> clone = clone(q);
-        T min = clone.head();
+        T min = firstNotNull(q);
         while (!clone.isEmpty()) {
             T current = clone.remove();
-            if (current.compareTo(min) < 0) min = current;
+            if (current != null && current.compareTo(min) < 0) min = current;
         }
         return min;
+    }
+
+    public <T> T firstNotNull(Queue<T> q) {
+        Queue<T> clone = clone(q);
+        T current = clone.remove();
+        while (current == null) current = clone.remove();
+        return current;
     }
 
     public <T> boolean isPalindrome(Queue<T> q) {
@@ -182,7 +191,7 @@ public class Hooks {
     }
 
     public <T extends Comparable<T>> T min(Node<T> node) {
-        T min = node.getValue();
+        T min = firstNotNull(node);
         Node<T> pos = node.getNext();
         while (pos != null) {
             T current = pos.getValue();
@@ -193,14 +202,20 @@ public class Hooks {
     }
 
     public <T extends Comparable<T>> T max(Node<T> node) {
-        T max = node.getValue();
+        T max = firstNotNull(node);
         Node<T> pos = node.getNext();
         while (pos != null) {
             T current = pos.getValue();
-            if (max.compareTo(current) < 0) max = current;
+            if (current != null && max.compareTo(current) < 0) max = current;
             pos = pos.getNext();
         }
         return max;
+    }
+
+    public <T> T firstNotNull(Node<T> node) {
+        Node<T> pos = node;
+        while (pos.getValue() == null) pos = pos.getNext();
+        return pos.getValue();
     }
 
     public <T> void clear(Node<T> node, T val) {
@@ -267,6 +282,16 @@ public class Hooks {
     public <T> int size(Node<T> node) {
         if (node == null) return 0;
         return size(node.getNext()) + 1;
+    }
+
+    public int sum(Node<Integer> node) {
+        int sum = 0;
+        Node<Integer> pos = node;
+        while (pos != null) {
+            sum += pos.getValue();
+            pos = pos.getNext();
+        }
+        return sum;
     }
 
     public <T> boolean exist(T[] arr, T x) {
