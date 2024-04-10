@@ -11,11 +11,7 @@ public class Hooks {
     }
 
     public int random(int min, int max) {
-        return (int) Math.round(random((double) min, max));
-    }
-
-    public double random(double min, double max) {
-        return (double) Math.round((Math.random() * (max - min) + min) * 100) / 100;
+        return (int) Math.round(Math.random() * (max - min) * 100) / 100;
     }
 
     public char random(char min, char max) {
@@ -97,7 +93,7 @@ public class Hooks {
         while (!clone.isEmpty()) {
             T temp = clone.remove();
             if (clone.isEmpty()) return true;
-            if (!temp.equals( removeLast(clone))) return false;
+            if (!temp.equals(removeLast(clone))) return false;
         }
         return true;
     }
