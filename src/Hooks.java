@@ -35,8 +35,8 @@ public class Hooks {
     }
 
     public <T> boolean exist(Queue<T> q, T x) {
-        Queue<T> q1 = clone(q);
-        while (!q1.isEmpty()) if (q1.remove() == x) return true;
+        Queue<T> clone = clone(q);
+        while (!clone.isEmpty()) if (clone.remove().equals(x)) return true;
         return false;
     }
 
@@ -97,7 +97,7 @@ public class Hooks {
         while (!clone.isEmpty()) {
             T temp = clone.remove();
             if (clone.isEmpty()) return true;
-            if (temp != removeLast(clone)) return false;
+            if (!temp.equals( removeLast(clone))) return false;
         }
         return true;
     }
@@ -136,7 +136,7 @@ public class Hooks {
             boolean reached = false;
             while (!q.isEmpty()) {
                 T current = q.remove();
-                if (current != max || reached) storage.insert(current);
+                if (!current.equals(max) || reached) storage.insert(current);
                 else reached = true;
             }
             spill(q, storage);
@@ -231,7 +231,7 @@ public class Hooks {
     public <T> boolean exist(Node<T> node, T x) {
         Node<T> pos = node;
         while (pos != null) {
-            if (pos.getValue() == x) return true;
+            if (pos.getValue().equals(x)) return true;
             pos = pos.getNext();
         }
         return false;
@@ -242,7 +242,7 @@ public class Hooks {
         Node<T> pos2 = node2;
         while (pos1 != null) {
             if (pos2 == null) return false;
-            if (pos1.getValue() != pos2.getValue()) return false;
+            if (!pos1.getValue().equals(pos2.getValue())) return false;
             pos1 = pos1.getNext();
             pos2 = pos2.getNext();
         }
@@ -252,7 +252,7 @@ public class Hooks {
     public <T> boolean isPalindrome(Node<T> node) {
         Node<T> clone = clone(node);
         while (clone != null) {
-            if (clone.getValue() != getLast(clone).getValue()) return false;
+            if (!clone.getValue().equals(getLast(clone).getValue())) return false;
             removeLast(clone);
             clone = clone.getNext();
             if (clone != null && clone.getNext() == null) return true;
@@ -288,7 +288,7 @@ public class Hooks {
     }
 
     public <T> boolean exist(T[] arr, T x) {
-        for (T i : arr) if (i == x) return true;
+        for (T i : arr) if (i.equals(x)) return true;
         return false;
     }
 
@@ -305,7 +305,7 @@ public class Hooks {
 
     public <T> boolean equals(T[] arr1, T[] arr2) {
         if (arr1.length != arr2.length) return false;
-        for (int i = 0; i < arr1.length; i++) if (arr1[i] != arr2[i]) return false;
+        for (int i = 0; i < arr1.length; i++) if (!arr1[i].equals(arr2[i])) return false;
         return true;
     }
 
