@@ -283,6 +283,7 @@ public class Hooks {
         return sum;
     }
 
+
     public <T> boolean exist(T[] arr, T x) {
         for (T i : arr) if (i.equals(x)) return true;
         return false;
@@ -290,6 +291,11 @@ public class Hooks {
 
     public boolean exist(int[] arr, int x) {
         for (int i : arr) if (i == x) return true;
+        return false;
+    }
+
+    public boolean exist(char[] arr, char x) {
+        for (char i : arr) if (i == x) return true;
         return false;
     }
 
@@ -336,6 +342,29 @@ public class Hooks {
     public <T> void reverse(T[] arr) {
         int length = arr.length;
         for (int i = 0; i < length / 2; i++) swap(arr, i, length - 1 - i);
+    }
+
+    public boolean exist(int num, int digit) {
+        for (int i = 1; i <= num; i *= 10) if ((num % (i * 10) / i) == digit) return true;
+        return false;
+    }
+
+    public int minDigit(int num) {
+        int min = num % 10;
+        for (int i = 1; i <= num; i *= 10) {
+            int current = (num % (i * 10) / i);
+            if (current < min) min = current;
+        }
+        return min;
+    }
+
+    public int maxDigit(int num) {
+        int max = num % 10;
+        for (int i = 1; i <= num; i *= 10) {
+            int current = (num % (i * 10) / i);
+            if (current > max) max = current;
+        }
+        return max;
     }
 
     public <T> void printArr(T[] arr) {
@@ -409,5 +438,19 @@ public class Hooks {
             pointer = pointer.getNext();
         }
         return result.getNext();
+    }
+
+    public int[] buildArray(int min, int max) {
+        int length = max - min + 1;
+        int[] result = new int[length];
+        for (int i = min; i <= max; i++) result[length - (max - i) - 1] = i;
+        return result;
+    }
+
+    public char[] buildArray(char min, char max) {
+        int length = max - min + 1;
+        char[] result = new char[length];
+        for (char i = min; i <= max; i++) result[length - (max - i) - 1] = i;
+        return result;
     }
 }
