@@ -299,6 +299,18 @@ public class Hooks {
         return false;
     }
 
+    public <T> int count(T[] arr, T val) {
+        int count = 0;
+        for (T i : arr) if (i.equals(val)) count++;
+        return count;
+    }
+
+    public int count(int[] arr, int val) {
+        int count = 0;
+        for (int i : arr) if (i == val) count++;
+        return count;
+    }
+
     public <T> boolean isPalindrome(T[] arr) {
         int length = arr.length;
         for (int i = 0; i < length / 2; i++) if (arr[i] != arr[length - i - 1]) return false;
