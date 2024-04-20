@@ -2,12 +2,12 @@ public class Functions {
     public static final Hooks hooks = new Hooks();
 
     public static void main(String[] args) {
-        int[] arr = {7, 12, 45, 6, 7, 45, 45, 8, 6};
+        int[] arr = {7};
         row(arr);
         hooks.printArr(arr);
     }
 
-//    Question 1
+    //    Question 1
     public static void row(int[] arr) {
         int length = arr.length;
         for (int i = 0; i < length - 1; i++) {
