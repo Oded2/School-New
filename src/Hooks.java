@@ -392,8 +392,10 @@ public class Hooks {
     public void printArr(int[] arr) {
         System.out.println(Arrays.toString(arr));
     }
-
     public void printArr(char[] arr) {
+        System.out.println(Arrays.toString(arr));
+    }
+    public void printArr(double[] arr){
         System.out.println(Arrays.toString(arr));
     }
 
