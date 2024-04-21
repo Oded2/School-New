@@ -46,6 +46,6 @@ public class CalcSeries {
 
     @Override
     public String toString() {
-        return getSeries(3).toString();
+        return getSeries(5).toString();
     }
 }

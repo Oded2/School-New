@@ -11,7 +11,7 @@ public class Hooks {
     }
 
     public int random(int min, int max) {
-        return (int) Math.round(Math.random() * (max - min) * 100) / 100;
+        return (int) Math.round(Math.random() * (max - min))+min;
     }
 
     public char random(char min, char max) {
