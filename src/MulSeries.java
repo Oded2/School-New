@@ -29,6 +29,14 @@ public class MulSeries {
         return a1 / (1 - q);
     }
 
+    public MulSeries oddOnly(){
+        return new MulSeries(a1, Math.pow(q,2));
+    }
+
+    public MulSeries evenOnly(){
+        return new MulSeries(getA(2), Math.pow(q,2));
+    }
+
     public double getA1() {
         return a1;
     }

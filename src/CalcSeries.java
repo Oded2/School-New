@@ -25,6 +25,13 @@ public class CalcSeries {
         return (n * (a1 * 2 + (n - 1) * d)) / 2;
     }
 
+    public CalcSeries oddOnly(){
+        return new CalcSeries(a1, d*2);
+    }
+    public CalcSeries evenOnly(){
+        return new CalcSeries(getA(2), d*2);
+    }
+
     public double getA1() {
         return a1;
     }
