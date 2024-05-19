@@ -11,7 +11,7 @@ public class Hooks {
     }
 
     public int random(int min, int max) {
-        return (int) Math.round(Math.random() * (max - min))+min;
+        return (int) Math.round(Math.random() * (max - min)) + min;
     }
 
     public char random(char min, char max) {
@@ -362,6 +362,11 @@ public class Hooks {
         for (int i = 0; i < length / 2; i++) swap(arr, i, length - 1 - i);
     }
 
+    public static int firstDigit(int n) {
+        while (n >= 10) n /= 10;
+        return n % 10;
+    }
+
     public boolean exist(int num, int digit) {
         for (int i = 1; i <= num; i *= 10) if ((num % (i * 10) / i) == digit) return true;
         return false;
@@ -392,10 +397,12 @@ public class Hooks {
     public void printArr(int[] arr) {
         System.out.println(Arrays.toString(arr));
     }
+
     public void printArr(char[] arr) {
         System.out.println(Arrays.toString(arr));
     }
-    public void printArr(double[] arr){
+
+    public void printArr(double[] arr) {
         System.out.println(Arrays.toString(arr));
     }
 
