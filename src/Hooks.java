@@ -2,8 +2,6 @@ import java.util.Arrays;
 
 public class Hooks {
 
-//    a.compareTo(b) returns: 1 if a > b, 0 if a == b, and -1 if a < b.
-
     public final String[] names = {"Luke", "Anakin", "Kylo", "Lando", "Yoda"};
 
     public String getName() {
