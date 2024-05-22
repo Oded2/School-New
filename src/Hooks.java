@@ -18,27 +18,27 @@ public class Hooks {
         return (char) random((int) min, max);
     }
 
-    public <T> Queue<T> clone(Queue<T> q) {
-        Queue<T> q1 = new Queue<>();
-        Queue<T> q2 = new Queue<>();
+    public Queue<Integer> clone(Queue<Integer> q) {
+        Queue<Integer> q1 = new Queue<>();
+        Queue<Integer> q2 = new Queue<>();
         while (!q.isEmpty()) {
-            T x = q.remove();
+            int x = q.remove();
             q1.insert(x);
             q2.insert(x);
         }
-        spill(q, q1);
+        while(!q1.isEmpty()) q.insert(q1.remove());
         return q2;
     }
 
-    public <T> boolean exist(Queue<T> q, T x) {
-        Queue<T> clone = clone(q);
+    public boolean exist(Queue<Integer> q, int x) {
+        Queue<Integer> clone = clone(q);
         while (!clone.isEmpty()) if (clone.remove().equals(x)) return true;
         return false;
     }
 
-    public <T> int size(Queue<T> q) {
+    public int size(Queue<Integer> q) {
         int len = 0;
-        Queue<T> clone = clone(q);
+        Queue<Integer> clone = clone(q);
         while (!clone.isEmpty()) {
             len++;
             clone.remove();
@@ -46,107 +46,108 @@ public class Hooks {
         return len;
     }
 
-    public <T> boolean equals(Queue<T> q1, Queue<T> q2) {
+    public boolean equals(Queue<Integer> q1, Queue<Integer> q2) {
         if (size(q1) != size(q2)) return false;
-        Queue<T> clone1 = clone(q1);
-        Queue<T> clone2 = clone(q2);
+        Queue<Integer> clone1 = clone(q1);
+        Queue<Integer> clone2 = clone(q2);
         while (!clone1.isEmpty()) if (clone1.remove() != clone2.remove()) return false;
         return true;
     }
 
-    public <T> T getLast(Queue<T> q) {
-        Queue<T> clone = clone(q);
-        T last = clone.remove();
+    public int getLast(Queue<Integer> q) {
+        Queue<Integer> clone = clone(q);
+        int last = clone.remove();
         while (!clone.isEmpty()) last = clone.remove();
         return last;
     }
 
-    public <T extends Comparable<T>> T max(Queue<T> q) {
-        Queue<T> clone = clone(q);
-        T max = firstNotNull(q);
+    public int max(Queue<Integer> q) {
+        Queue<Integer> clone = clone(q);
+        int max = q.head();
         while (!clone.isEmpty()) {
-            T current = clone.remove();
-            if (current != null && current.compareTo(max) > 0) max = current;
+            int temp = clone.remove();
+            if (temp > max) max = temp;
         }
         return max;
     }
 
-    public <T extends Comparable<T>> T min(Queue<T> q) {
-        Queue<T> clone = clone(q);
-        T min = firstNotNull(q);
+    public int min(Queue<Integer> q) {
+        Queue<Integer> clone = clone(q);
+        int min = q.head();
         while (!clone.isEmpty()) {
-            T current = clone.remove();
-            if (current != null && current.compareTo(min) < 0) min = current;
+            int temp = clone.remove();
+            if (temp < min) min = temp;
         }
         return min;
     }
 
-    public <T> T firstNotNull(Queue<T> q) {
-        Queue<T> clone = clone(q);
-        T current = clone.remove();
-        while (current == null) current = clone.remove();
-        return current;
-    }
 
-    public <T> boolean isPalindrome(Queue<T> q) {
-        Queue<T> clone = clone(q);
+    public boolean isPalindrome(Queue<Integer> q) {
+        Queue<Integer> clone = clone(q);
         while (!clone.isEmpty()) {
-            T temp = clone.remove();
+            int temp = clone.remove();
             if (clone.isEmpty()) return true;
-            if (!temp.equals(removeLast(clone))) return false;
+            if (temp != removeLast(clone)) return false;
         }
         return true;
     }
 
-    public <T> T removeLast(Queue<T> q) {
-        Queue<T> result = new Queue<>();
-        T last = q.remove();
+    public int removeLast(Queue<Integer> q) {
+        Queue<Integer> result = new Queue<>();
+        int last = q.remove();
         while (!q.isEmpty()) {
             result.insert(last);
             last = q.remove();
         }
-        spill(q, result);
+        while (!result.isEmpty()) q.insert(result.remove());
         return last;
     }
 
-    public <T> void spill(Queue<T> in, Queue<T> out) {
-        while (!out.isEmpty()) in.insert(out.remove());
-    }
-
-    public <T> void reverse(Queue<T> q) {
-        Queue<T> clone = clone(q);
-        clear(q);
+    public void reverse(Queue<Integer> q) {
+        Queue<Integer> clone = clone(q);
+        while (!q.isEmpty()) q.remove();
         while (!clone.isEmpty()) q.insert(removeLast(clone));
     }
 
-    public <T> void clear(Queue<T> q) {
-        while (!q.isEmpty()) q.remove();
+    public void sortNull(Queue<Integer> q) {
+        Queue<Integer> sorted = new Queue<>();
+        while (!q.isEmpty()) {
+            int min = min(q);
+            q.insert(null);
+            while (q.head() != null) {
+                int temp = q.remove();
+                if (temp == min) sorted.insert(min);
+                else q.insert(temp);
+            }
+            q.remove();
+        }
+        while (!sorted.isEmpty()) q.insert(sorted.remove());
     }
 
-    public <T extends Comparable<T>> void sort(Queue<T> q) {
-        Queue<T> sorted = new Queue<>();
+    public void sort(Queue<Integer> q) {
+        Queue<Integer> sorted = new Queue<>();
         while (!q.isEmpty()) {
-            T max = max(q);
+            int max = max(q);
             sorted.insert(max);
-            Queue<T> storage = new Queue<>();
+            Queue<Integer> storage = new Queue<>();
             boolean reached = false;
             while (!q.isEmpty()) {
-                T current = q.remove();
-                if (!current.equals(max) || reached) storage.insert(current);
+                int current = q.remove();
+                if (current!= max|| reached) storage.insert(current);
                 else reached = true;
             }
-            spill(q, storage);
+            while(!storage.isEmpty()) q.insert(storage.remove());
         }
-        spill(q, sorted);
+        while(!sorted.isEmpty()) q.insert(sorted.remove());
     }
 
-    public <T extends Comparable<T>> void sort(Node<T> node) {
-        Node<T> pos1 = node;
+    public void sort(Node<Integer> node) {
+        Node<Integer> pos1 = node;
         while (pos1 != null) {
-            Node<T> pos2 = node;
+            Node<Integer> pos2 = node;
             while (pos2.getNext() != null) {
-                if (pos2.getValue().compareTo(pos2.getNext().getValue()) > 0) {
-                    T temp = pos2.getValue();
+                if (pos2.getValue()> pos2.getNext().getValue()) {
+                    int temp = pos2.getValue();
                     pos2.setValue(pos2.getNext().getValue());
                     pos2.getNext().setValue(temp);
                 }
@@ -156,12 +157,12 @@ public class Hooks {
         }
     }
 
-    public <T> void reverse(Node<T> node) {
-        Node<T> clone = clone(node);
-        Node<T> pos = node;
-        T first = node.getValue();
+    public void reverse(Node<Integer> node) {
+        Node<Integer> clone = clone(node);
+        Node<Integer> pos = node;
+        int first = node.getValue();
         while (pos != null) {
-            T temp = pos.getValue();
+            Integer temp = pos.getValue();
             pos.setValue(getLast(clone).getValue());
             getLast(pos).setValue(temp);
             if (clone.getNext() != null) removeLast(clone);
@@ -170,52 +171,41 @@ public class Hooks {
         getLast(node).setValue(first);
     }
 
-    public <T> void swap(Node<T> node1, Node<T> node2) {
-        T tempVal = node1.getValue();
-        Node<T> tempNext = node1.getNext();
+    public  void swap(Node<Integer> node1, Node<Integer> node2) {
+        int tempVal = node1.getValue();
+        Node<Integer> tempNext = node1.getNext();
         node1.setValue(node2.getValue());
         node1.setNext(node2.getNext());
         node2.setValue(tempVal);
         node2.setNext(tempNext);
     }
 
-    public <T extends Comparable<T>> T min(Node<T> node) {
-        T min = firstNotNull(node);
-        Node<T> pos = node.getNext();
-        while (pos != null) {
-            T current = pos.getValue();
-            if (min.compareTo(current) > 0) min = current;
+    public int min(Node<Integer> node){
+        int min = node.getValue();
+        Node<Integer> pos = node.getNext();
+        while(pos!=null){
+            int temp = pos.getValue();
+            if(temp<min) min = temp;
             pos = pos.getNext();
         }
         return min;
     }
 
-    public <T extends Comparable<T>> T max(Node<T> node) {
-        T max = firstNotNull(node);
-        Node<T> pos = node.getNext();
-        while (pos != null) {
-            T current = pos.getValue();
-            if (current != null && max.compareTo(current) < 0) max = current;
-            pos = pos.getNext();
-        }
-        return max;
+    public int max(Node<Integer> node) {
+       int max = node.getValue();
+       Node<Integer> pos = node.getNext();
+       while(pos!=null){
+           int temp = pos.getValue();
+           if(temp>max) max = temp;
+           pos = pos.getNext();
+       }
+       return max;
     }
 
-    public <T> T firstNotNull(Node<T> node) {
-        Node<T> pos = node;
-        while (pos.getValue() == null) pos = pos.getNext();
-        return pos.getValue();
-    }
-
-    public <T> void clear(Node<T> node, T val) {
-        node.setValue(val);
-        node.setNext(null);
-    }
-
-    public <T> Node<T> clone(Node<T> node) {
-        Node<T> pos = node.getNext();
-        Node<T> result = new Node<>(node.getValue());
-        Node<T> pointer = result;
+    public Node<Integer> clone(Node<Integer> node) {
+        Node<Integer> pos = node.getNext();
+        Node<Integer> result = new Node<>(node.getValue());
+        Node<Integer> pointer = result;
         while (pos != null) {
             pointer.setNext(new Node<>(pos.getValue()));
             pointer = pointer.getNext();
@@ -224,18 +214,18 @@ public class Hooks {
         return result;
     }
 
-    public <T> boolean exist(Node<T> node, T x) {
-        Node<T> pos = node;
+    public boolean exist(Node<Integer> node, int x) {
+        Node<Integer> pos = node;
         while (pos != null) {
-            if (pos.getValue().equals(x)) return true;
+            if (pos.getValue() == x) return true;
             pos = pos.getNext();
         }
         return false;
     }
 
-    public <T> boolean equals(Node<T> node1, Node<T> node2) {
-        Node<T> pos1 = node1;
-        Node<T> pos2 = node2;
+    public  boolean equals(Node<Integer> node1, Node<Integer> node2) {
+        Node<Integer> pos1 = node1;
+        Node<Integer> pos2 = node2;
         while (pos1 != null) {
             if (pos2 == null) return false;
             if (!pos1.getValue().equals(pos2.getValue())) return false;
@@ -245,8 +235,8 @@ public class Hooks {
         return pos2 == null;
     }
 
-    public <T> boolean isPalindrome(Node<T> node) {
-        Node<T> clone = clone(node);
+    public boolean isPalindrome(Node<Integer> node) {
+        Node<Integer> clone = clone(node);
         while (clone != null) {
             if (!clone.getValue().equals(getLast(clone).getValue())) return false;
             removeLast(clone);
@@ -256,21 +246,21 @@ public class Hooks {
         return true;
     }
 
-    public <T> Node<T> getLast(Node<T> node) {
-        Node<T> pos = node;
+    public  int size(Node<Integer> node) {
+        if (node == null) return 0;
+        return size(node.getNext()) + 1;
+    }
+
+    public  Node<Integer> getLast(Node<Integer> node) {
+        Node<Integer> pos = node;
         while (pos.getNext() != null) pos = pos.getNext();
         return pos;
     }
 
-    public <T> void removeLast(Node<T> node) {
-        Node<T> pos = node;
+    public void removeLast(Node<Integer> node) {
+        Node<Integer> pos = node;
         while (pos.getNext().getNext() != null) pos = pos.getNext();
         pos.setNext(null);
-    }
-
-    public <T> int size(Node<T> node) {
-        if (node == null) return 0;
-        return size(node.getNext()) + 1;
     }
 
     public int sum(Node<Integer> node) {
@@ -284,30 +274,15 @@ public class Hooks {
     }
 
 
-    public <T> boolean exist(T[] arr, T x) {
-        for (T i : arr) if (i.equals(x)) return true;
-        return false;
-    }
-
     public boolean exist(int[] arr, int x) {
-        for (int i : arr) if (i == x) return true;
+        for(int i = 0 ;i<arr.length; i++) if(arr[i]==x) return true;
         return false;
     }
 
-    public boolean exist(char[] arr, char x) {
-        for (char i : arr) if (i == x) return true;
-        return false;
-    }
-
-    public <T> int count(T[] arr, T val) {
-        int count = 0;
-        for (T i : arr) if (i.equals(val)) count++;
-        return count;
-    }
 
     public int count(int[] arr, int val) {
         int count = 0;
-        for (int i : arr) if (i == val) count++;
+        for(int i = 0; i<arr.length; i++) if(arr[i]==val) count++;
         return count;
     }
 
