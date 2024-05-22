@@ -26,7 +26,7 @@ public class Hooks {
             q1.insert(x);
             q2.insert(x);
         }
-        while(!q1.isEmpty()) q.insert(q1.remove());
+        while (!q1.isEmpty()) q.insert(q1.remove());
         return q2;
     }
 
@@ -133,12 +133,12 @@ public class Hooks {
             boolean reached = false;
             while (!q.isEmpty()) {
                 int current = q.remove();
-                if (current!= max|| reached) storage.insert(current);
+                if (current != max || reached) storage.insert(current);
                 else reached = true;
             }
-            while(!storage.isEmpty()) q.insert(storage.remove());
+            while (!storage.isEmpty()) q.insert(storage.remove());
         }
-        while(!sorted.isEmpty()) q.insert(sorted.remove());
+        while (!sorted.isEmpty()) q.insert(sorted.remove());
     }
 
     public void sort(Node<Integer> node) {
@@ -146,7 +146,7 @@ public class Hooks {
         while (pos1 != null) {
             Node<Integer> pos2 = node;
             while (pos2.getNext() != null) {
-                if (pos2.getValue()> pos2.getNext().getValue()) {
+                if (pos2.getValue() > pos2.getNext().getValue()) {
                     int temp = pos2.getValue();
                     pos2.setValue(pos2.getNext().getValue());
                     pos2.getNext().setValue(temp);
@@ -171,7 +171,7 @@ public class Hooks {
         getLast(node).setValue(first);
     }
 
-    public  void swap(Node<Integer> node1, Node<Integer> node2) {
+    public void swap(Node<Integer> node1, Node<Integer> node2) {
         int tempVal = node1.getValue();
         Node<Integer> tempNext = node1.getNext();
         node1.setValue(node2.getValue());
@@ -180,26 +180,26 @@ public class Hooks {
         node2.setNext(tempNext);
     }
 
-    public int min(Node<Integer> node){
+    public int min(Node<Integer> node) {
         int min = node.getValue();
         Node<Integer> pos = node.getNext();
-        while(pos!=null){
+        while (pos != null) {
             int temp = pos.getValue();
-            if(temp<min) min = temp;
+            if (temp < min) min = temp;
             pos = pos.getNext();
         }
         return min;
     }
 
     public int max(Node<Integer> node) {
-       int max = node.getValue();
-       Node<Integer> pos = node.getNext();
-       while(pos!=null){
-           int temp = pos.getValue();
-           if(temp>max) max = temp;
-           pos = pos.getNext();
-       }
-       return max;
+        int max = node.getValue();
+        Node<Integer> pos = node.getNext();
+        while (pos != null) {
+            int temp = pos.getValue();
+            if (temp > max) max = temp;
+            pos = pos.getNext();
+        }
+        return max;
     }
 
     public Node<Integer> clone(Node<Integer> node) {
@@ -223,7 +223,7 @@ public class Hooks {
         return false;
     }
 
-    public  boolean equals(Node<Integer> node1, Node<Integer> node2) {
+    public boolean equals(Node<Integer> node1, Node<Integer> node2) {
         Node<Integer> pos1 = node1;
         Node<Integer> pos2 = node2;
         while (pos1 != null) {
@@ -246,12 +246,12 @@ public class Hooks {
         return true;
     }
 
-    public  int size(Node<Integer> node) {
+    public int size(Node<Integer> node) {
         if (node == null) return 0;
         return size(node.getNext()) + 1;
     }
 
-    public  Node<Integer> getLast(Node<Integer> node) {
+    public Node<Integer> getLast(Node<Integer> node) {
         Node<Integer> pos = node;
         while (pos.getNext() != null) pos = pos.getNext();
         return pos;
@@ -275,33 +275,27 @@ public class Hooks {
 
 
     public boolean exist(int[] arr, int x) {
-        for(int i = 0 ;i<arr.length; i++) if(arr[i]==x) return true;
+        for (int i = 0; i < arr.length; i++) if (arr[i] == x) return true;
         return false;
     }
 
 
     public int count(int[] arr, int val) {
         int count = 0;
-        for(int i = 0; i<arr.length; i++) if(arr[i]==val) count++;
+        for (int i = 0; i < arr.length; i++) if (arr[i] == val) count++;
         return count;
     }
 
-    public <T> boolean isPalindrome(T[] arr) {
+    public boolean isPalindrome(int[] arr) {
         int length = arr.length;
         for (int i = 0; i < length / 2; i++) if (arr[i] != arr[length - i - 1]) return false;
         return true;
     }
 
-    public <T> boolean equals(T[] arr1, T[] arr2) {
+    public boolean equals(int[] arr1, int[] arr2) {
         if (arr1.length != arr2.length) return false;
-        for (int i = 0; i < arr1.length; i++) if (!arr1[i].equals(arr2[i])) return false;
+        for (int i = 0; i < arr1.length; i++) if (arr1[i] != arr2[i]) return false;
         return true;
-    }
-
-    public <T> void swap(T[] arr, int i, int j) {
-        T temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
     }
 
     public void swap(int[] arr, int i, int j) {
@@ -314,25 +308,25 @@ public class Hooks {
         Arrays.sort(arr);
     }
 
-    public <T extends Comparable<T>> T max(T[] arr) {
-        T max = arr[0];
+    public int max(int[] arr) {
+        int max = arr[0];
         for (int i = 1; i < arr.length; i++) {
-            T current = arr[i];
-            if (current.compareTo(max) > 0) max = current;
+            int current = arr[i];
+            if (current > max) max = current;
         }
         return max;
     }
 
-    public <T extends Comparable<T>> T min(T[] arr) {
-        T min = arr[0];
+    public int min(int[] arr) {
+        int min = arr[0];
         for (int i = 1; i < arr.length; i++) {
-            T current = arr[i];
-            if (current.compareTo(min) < 0) min = current;
+            int current = arr[i];
+            if (current < min) min = current;
         }
         return min;
     }
 
-    public <T> void reverse(T[] arr) {
+    public void reverse(int[] arr) {
         int length = arr.length;
         for (int i = 0; i < length / 2; i++) swap(arr, i, length - 1 - i);
     }
