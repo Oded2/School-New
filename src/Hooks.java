@@ -44,14 +44,14 @@ public class Hooks {
         return len;
     }
 
-    public void change(Queue<Integer> q, int val, int newVal){
+    public void change(Queue<Integer> q, int val, int newVal) {
         Queue<Integer> result = new Queue<>();
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int temp = q.remove();
-            if(temp!=val) result.insert(temp);
+            if (temp != val) result.insert(temp);
             else result.insert(newVal);
         }
-        while(!result.isEmpty()) q.insert(result.remove());
+        while (!result.isEmpty()) q.insert(result.remove());
     }
 
     public boolean equals(Queue<Integer> q1, Queue<Integer> q2) {
@@ -165,13 +165,14 @@ public class Hooks {
         }
     }
 
-    public void change(Node<Integer> node, int val, int newVal){
+    public void change(Node<Integer> node, int val, int newVal) {
         Node<Integer> pos = node;
-        while(pos!=null){
-            if(pos.getValue()==val) pos.setValue(newVal);
+        while (pos != null) {
+            if (pos.getValue() == val) pos.setValue(newVal);
             pos = pos.getNext();
         }
     }
+
 
     public void reverse(Node<Integer> node) {
         Node<Integer> clone = clone(node);
