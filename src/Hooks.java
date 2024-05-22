@@ -165,6 +165,14 @@ public class Hooks {
         }
     }
 
+    public void change(Node<Integer> node, int val, int newVal){
+        Node<Integer> pos = node;
+        while(pos!=null){
+            if(pos.getValue()==val) pos.setValue(newVal);
+            pos = pos.getNext();
+        }
+    }
+
     public void reverse(Node<Integer> node) {
         Node<Integer> clone = clone(node);
         Node<Integer> pos = node;
@@ -311,10 +319,6 @@ public class Hooks {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
-    }
-
-    public <T extends Comparable<T>> void sort(T[] arr) {
-        Arrays.sort(arr);
     }
 
     public int max(int[] arr) {
