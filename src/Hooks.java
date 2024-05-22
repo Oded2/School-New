@@ -8,8 +8,8 @@ public class Hooks {
         return names[random(0, names.length - 1)];
     }
 
-    public int random(int min, int max) {
-        return (int) Math.round(Math.random() * (max - min)) + min;
+    public int random(int n1, int n2) {
+        return (int) (Math.random() * (n2 - n1 + 1)) + n1;
     }
 
     public char random(char min, char max) {
@@ -125,13 +125,13 @@ public class Hooks {
     public void sort(Queue<Integer> q) {
         Queue<Integer> sorted = new Queue<>();
         while (!q.isEmpty()) {
-            int max = max(q);
-            sorted.insert(max);
+            int min = min(q);
+            sorted.insert(min);
             Queue<Integer> storage = new Queue<>();
             boolean reached = false;
             while (!q.isEmpty()) {
                 int current = q.remove();
-                if (current != max || reached) storage.insert(current);
+                if (current != min || reached) storage.insert(current);
                 else reached = true;
             }
             while (!storage.isEmpty()) q.insert(storage.remove());
@@ -244,6 +244,7 @@ public class Hooks {
         return true;
     }
 
+
     public int size(Node<Integer> node) {
         if (node == null) return 0;
         return size(node.getNext()) + 1;
@@ -329,7 +330,7 @@ public class Hooks {
         for (int i = 0; i < length / 2; i++) swap(arr, i, length - 1 - i);
     }
 
-    public static int firstDigit(int n) {
+    public int firstDigit(int n) {
         while (n >= 10) n /= 10;
         return n;
     }
