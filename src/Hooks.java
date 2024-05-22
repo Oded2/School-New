@@ -44,6 +44,16 @@ public class Hooks {
         return len;
     }
 
+    public void change(Queue<Integer> q, int val, int newVal){
+        Queue<Integer> result = new Queue<>();
+        while(!q.isEmpty()){
+            int temp = q.remove();
+            if(temp!=val) result.insert(temp);
+            else result.insert(newVal);
+        }
+        while(!result.isEmpty()) q.insert(result.remove());
+    }
+
     public boolean equals(Queue<Integer> q1, Queue<Integer> q2) {
         if (size(q1) != size(q2)) return false;
         Queue<Integer> clone1 = clone(q1);
