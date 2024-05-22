@@ -4,7 +4,6 @@ public class Functions {
     public static void main(String[] args) {
         int[] arr = {7};
         row(arr);
-        hooks.printArr(arr);
     }
 
     //    Question 1

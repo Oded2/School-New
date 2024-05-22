@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Hooks {
 
     public final String[] names = {"Luke", "Anakin", "Kylo", "Lando", "Yoda"};
@@ -371,22 +369,6 @@ public class Hooks {
             if (current > max) max = current;
         }
         return max;
-    }
-
-    public <T> void printArr(T[] arr) {
-        System.out.println(Arrays.toString(arr));
-    }
-
-    public void printArr(int[] arr) {
-        System.out.println(Arrays.toString(arr));
-    }
-
-    public void printArr(char[] arr) {
-        System.out.println(Arrays.toString(arr));
-    }
-
-    public void printArr(double[] arr) {
-        System.out.println(Arrays.toString(arr));
     }
 
     public <T> Queue<T> buildQueue(T[] arr) {
